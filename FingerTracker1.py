@@ -7,7 +7,6 @@ import time
 mp_hand = mp.solutions.hands
 hands = mp_hand.Hands()
 
-# Open video capture
 cap = cv2.VideoCapture(0)
 
 # Initialize finger trajectory storage
@@ -26,7 +25,6 @@ while True:
 
     frame = cv2.flip(frame, 1)
 
-    # Convert the frame to RGB
     rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
     # Process the frame using Mediapipe Hand tracking
@@ -34,20 +32,15 @@ while True:
 
     if results.multi_hand_landmarks:
         for hand_landmarks in results.multi_hand_landmarks:
-            # Get landmarks for the index finger
             index_finger_landmarks = [hand_landmarks.landmark[i] for i in [8]]
 
-            # Get current timestamp
             current_time = time.time()
 
-            # Process and track the index finger landmarks
             for idx, landmark in enumerate(index_finger_landmarks):
                 x, y = int(landmark.x * frame.shape[1]), int(landmark.y * frame.shape[0])
 
-                # Store the landmark coordinates and timestamp for finger trajectory tracking
                 finger_trajectories[idx].append((x, y, current_time))
 
-                # Draw the landmarks on the frame
                 cv2.circle(frame, (x, y), 5, (0, 0, 255), -1)
 
     # Remove outdated points from trajectories
