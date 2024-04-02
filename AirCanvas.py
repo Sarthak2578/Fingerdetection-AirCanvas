@@ -14,9 +14,6 @@ thick = 4
 prevx, prevy = 0,0
 
 
-
-#get tools function
-
 def getTool(x):
     if x < 50 + ml:
         return "line"
@@ -43,33 +40,25 @@ hands = mp.solutions.hands
 hand_landmark = hands.Hands(min_detection_confidence=0.6, min_tracking_confidence=0.6, max_num_hands=1)
 draw = mp.solutions.drawing_utils
 
-
-# drawing tools
-
+# Drawing Tools
 image_path = r"D:\Major Project\tools.png"
 
 tools = cv2.imread(image_path)
 
 if tools is not None:
-    # Conversion of the image to uint8 (if needed)
     tools = tools.astype('uint8')
 
-    # Create a mask
     mask = np.ones((480, 640)) * 255
     mask = mask.astype('uint8')
 
-    # Save the modified image to the new location
     cv2.imwrite(image_path, tools)
 
-    # Optional: Save the mask as well
     cv2.imwrite("D:/Downloads/mask.png", mask)
 else:
     print(f"Failed to load the image from {image_path}")
 
 
-# Save the modified image to the new location
 cv2.imwrite("D:/Downloads/tools.png", tools)
-# Optional: Save the mask as well
 cv2.imwrite("D:/Downloads/mask.png", mask)
 '''
 tools = np.zeros((max_y+5, max_x+5, 3), dtype="uint8")
