@@ -49,28 +49,20 @@ while cap.isOpened():
     if not success:
         continue
 
-    # Convert the image color from BGR to RGB
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
-    # Process the image and find hands
     results = hands.process(image)
 
-    # Convert the image color back to BGR for OpenCV
     image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
-    # Check if any hand is detected
     if results.multi_hand_landmarks:
         for hand_landmarks in results.multi_hand_landmarks:
-            # Draw hand landmarks
             mp_draw.draw_landmarks(image, hand_landmarks, mp_hands.HAND_CONNECTIONS)
 
-            # Check fingers up
             fingers_up = check_fingers_up(hand_landmarks, results.multi_hand_world_landmarks[0])
 
-            # Interpret gesture
             gesture = interpret_gesture(fingers_up)
 
-            # Perform action based on gesture
             if gesture == 'next_slide':
                 pyautogui.press('right')
             elif gesture == 'prev_slide':
