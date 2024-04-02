@@ -8,10 +8,8 @@ import matplotlib.pyplot as plt
 mp_hand = mp.solutions.hands
 hands = mp_hand.Hands()
 
-# Open video capture
 cap = cv2.VideoCapture(0)
 
-# Initialize finger trajectory storage
 finger_trajectories = [[] for _ in range(21)]  # One list for each finger landmark
 
 # Initialize text storage
@@ -29,29 +27,22 @@ while True:
 
     frame = cv2.flip(frame, 1)
 
-    # Convert the frame to RGB
     rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-    # Process the frame using Mediapipe Hand tracking
     results = hands.process(rgb_frame)
 
     if results.multi_hand_landmarks:
         for hand_landmarks in results.multi_hand_landmarks:
-            # Get landmarks for the index finger
             index_finger_landmarks = [hand_landmarks.landmark[i] for i in [8]]
 
-            # Get current timestamp
             current_time = time.time()
 
-            # Process and track the index finger landmarks
             for idx, landmark in enumerate(index_finger_landmarks):
                 x, y = int(landmark.x * frame.shape[1]), int(landmark.y * frame.shape[0])
 
                 if record_trajectory:
-                    # Store the landmark coordinates and timestamp for finger trajectory tracking
                     finger_trajectories[idx].append((x, y, current_time))
 
-                # Draw the landmarks on the frame
                 cv2.circle(frame, (x, y), 5, (0, 0, 255), -1)
 
     # Remove outdated points from trajectories if not recording
@@ -66,7 +57,6 @@ while True:
                 pts = pts.reshape((-1, 1, 2))  # Reshape for polylines
                 cv2.polylines(frame, [pts], isClosed=False, color=(230, 216, 173), thickness=2)
 
-    # Display the frame
     cv2.imshow("Finger Trajectory Tracker", frame)
 
     # Save the finger trajectories and text to a file if 's' key is pressed
@@ -88,7 +78,6 @@ while True:
     elif k == ord('d'):
         record_trajectory = not record_trajectory  # Toggle recording trajectory
 
-# Release video capture and close windows
 cap.release()
 cv2.destroyAllWindows()
 
@@ -102,13 +91,10 @@ with open(file_path, "r") as file:
     for line in file:
         line = line.strip()
         if line.startswith("Finger"):
-            # Extract the finger index from the line
             current_finger_index = int(line.split()[1])
         elif line.startswith("Text:"):
-            # Skip lines that contain "Text:"
             continue
         elif line:
-            # Split the line into x, y, and timestamp values
             x, y, timestamp = map(float, line.split(","))
             finger_trajectories[current_finger_index].append((x, y, timestamp))
 
