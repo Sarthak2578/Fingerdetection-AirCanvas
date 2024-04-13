@@ -8,7 +8,7 @@ This repository contains python scripts for various modules we found and develop
 - **Finger Tracker with trajectory storage** 
 - **Finger Tracker with color change (Base AirCanvas)**
 - **Air Canvas**
-- **Gesture based computer interaction (Scrolling and Sliding)**
+- **Gesture based computer interaction and control**
 
 ## Features
 - **Real-time Hand Landmark Detection:** Utilized Mediapipe to detect hand landmarks in real-time from webcam feed.
