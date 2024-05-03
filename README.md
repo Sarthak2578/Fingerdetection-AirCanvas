@@ -1,6 +1,6 @@
 # OpenCV and Mediapipe hand Gesture Research Modules
 
-This repository contains python scripts for various modules we found and developed on hand gesture recognition and interaction using OpenCV and Mediapipe. These modules provide a foundation for exploring various techniques and algorithms for hand gesture detection, tracking, and interacion in computer vision applications
+This repository contains python scripts for various modules we found and developed on hand gesture recognition, interaction and character prediction using OpenCV and Mediapipe. These modules provide a foundation for exploring various techniques and algorithms for hand gesture detection, tracking, and interacion in computer vision applications
 
 ## Modules
 - **Finger Count**
@@ -9,6 +9,7 @@ This repository contains python scripts for various modules we found and develop
 - **Finger Tracker with color change (Base AirCanvas)**
 - **Air Canvas**
 - **Gesture based computer interaction and control**
+- **Gesture Recognition and Alphabet Prediction**
 
 ## Features
 - **Real-time Hand Landmark Detection:** Utilized Mediapipe to detect hand landmarks in real-time from webcam feed.
